@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AMP Widget Test Version 1.2</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript">
+        </script>
+    </head>
+    <script src="snd.js"></script>
+    <script src="slides.js"></script>
+    <script src="images.js"></script>
+    <script src="selection.js"></script>
+    <script>
+        let page = '0';
+        let nextPage = '1';
+        let backPage = '';
+        let soundsLoaded = false;
+        let appStarted = false;
+        let playMvt2, playMvt3, playMvt4;
+        let symphonyFinished = false;
+        // let choices = [''];
+        // let aClicked = false;
+        // let bClicked = false;
+        let imgClicked = false;
+        let currentAudioDuration = 1;
+        let cueTime = 0;
+        let finishedPlayingAudio = false;
+        let movement4Slide = false;
+
+        //tracking various composition choices
+        let melodyChoice = 1;
+        let accompChoice = 1;
+        let melodyShape = 1;
+        let instrument = 1;
+        let choicesPlayed = [false,false];
+
+
+
+        //sound loading function
+        var loading;
+
+        //audio file playing progress function
+        var playing;
+
+        function toggle(id) {
+            // let a = document.getElementById('A');
+            // let b = document.getElementById('B');
+            // if(id == 'A')
+            // {
+            //     stopSnd();
+            //     aClicked = !aClicked;
+            //     bClicked = false;
+            //     if(aClicked) { 
+            //         a.style.border = '4px solid transparent'; 
+            //         a.style.backgroundColor = '#ff695e';
+            //         if(page == 1) { playSnd(0); }
+            //         if(page == 2) { playSnd(3); }
+            //         if(page == 3) { 
+            //             if(choices[1] == 'Theme A' && choices[2] == 'Staccato Accompaniment')
+            //                 { playSnd(4); }
+            //             else if(choices[1] == 'Theme A' && choices[2] == 'Legato Accompaniment')
+            //                 { playSnd(5); }
+            //             else if(choices[1] == 'Theme B' && choices[2] == 'Staccato Accompaniment')
+            //                 { playSnd(6); }
+            //             else if(choices[1] == 'Theme B' && choices[2] == 'Legato Accompaniment')
+            //                 { playSnd(7); }
+            //         }
+            //         if(page == 4) { playSnd(8); }
+            //         if(page == 5) { 
+            //             if(choices[4] == 'Rising Major Melody')
+            //                 { playSnd(10); }
+            //             else if(choices[4] == 'Falling Minor Melody')
+            //                 { playSnd(11); }
+            //         }
+            //         if(page == 6) { playSnd(12); }
+            //         if(page == 7) { 
+            //             if(choices[6] == 'Trombone')
+            //                 { playSnd(14); }
+            //             else if(choices[6] == 'Horn')
+            //                 { playSnd(15); }
+            //         }
+            //     }
+            //     if(!aClicked) { 
+            //         a.style.border = '4px solid transparent'; 
+            //         a.style.backgroundColor = 'rgba(0,0,0,0)'
+            //     }
+            //     b.style.border = '4px solid transparent';
+            //     b.style.backgroundColor = 'rgba(0,0,0,0)';
+            //     if(page == 1) { choices[page] = 'Theme A'; }
+            //     if(page == 2) { choices[page] = 'Staccato Accompaniment'; }
+            //     if(page == 4) { choices[page] = 'Rising Major Melody'; }
+            //     if(page == 6) { choices[page] = 'Trombone'; }
+
+            // }
+            // else
+            // {
+            //     stopSnd();
+            //     bClicked = !bClicked;
+            //     aClicked = false;
+            //     if(bClicked) { 
+            //         b.style.border = '4px solid transparent'; 
+            //         b.style.backgroundColor = '#ff695e';
+            //         if(page == 1) { playSnd(1); }
+            //         if(page == 2) { playSnd(2); }
+            //         if(page == 4) { playSnd(9); }
+            //         if(page == 6) { playSnd(13); } 
+            //     }
+            //     if(!bClicked) { 
+            //         b.style.border = '4px solid transparent'; 
+            //         b.style.backgroundColor = 'rgba(0,0,0,0)';
+            //     }
+            //     a.style.border = '4px solid transparent';
+            //     a.style.backgroundColor = 'rgba(0,0,0,0)';
+            //     if(page == 1) { choices[page] = 'Theme B'; }
+            //     if(page == 2) { choices[page] = 'Legato Accompaniment'; }
+            //     if(page == 4) { choices[page] = 'Falling Minor Melody'; }
+            //     if(page == 6) { choices[page] = 'Viola'; }
+
+            // }
+            // if(page != 8 && (aClicked || bClicked)) { document.getElementById('next').style.display = 'inline'; }
+            // else { document.getElementById('next').style.display = 'none'; }
+        }
+
+    </script>
+    <body>
+        <header>
+            <div id="header01">
+                <div>
+                    <img id="logo" src="img/logo.png">
+                </div>
+                <div>
+                    Acoustic Music Project
+                </div>
+            </div>
+            <div id="header02">
+                
+            </div>
+        </header>
+        <main>
+            <div id="imagecontainer">
+                <img id="image" src="img/01.jpg" onclick="highlightImage()">
+                <div id="progressbar">
+                    <div id="loadbar"></div>
+                </div>
+            </div>
+            <div id="container">
+                <h1 id="title"></h1>
+                <img src="img/dog.png" id="dog">
+                <p id="p1">Please adjust browser window to full screen and use headphones for the best experience. <br><br> Click the image on the left to load sounds.</p>
+                <div id="buttondiv">
+                    <button id="choice1" onclick="select(1)"></button>
+                    <button id="choice2" onclick="select(2)"></button>
+                    <button id="choice3" onclick="select(3)"></button>
+                    <button id="choice4" onclick="select(4)"></button>
+                </div>
+                <h2 id="A" onclick="toggle('A')"></h2>
+                <h2 id="B" onclick="toggle('B')"></h2>
+                <p id="p2"></p>
+            </div>
+        </main>
+        <footer>
+            <button id="back" onclick="goBack()">Back</button>
+            <button id="next" onclick="toPage()">Start</button>
+        </footer>
+    </body>
+</html>
